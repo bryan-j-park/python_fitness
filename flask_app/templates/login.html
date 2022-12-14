@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="{{url_for('static',filename='css/output.css')}}" rel="stylesheet">
+  <link rel="stylesheet" href="/flask_app/static/css/output.css">
+  <title>Login</title>
+</head>
+<body class="bg-gradient-to-b from-teal-500 to-orange-200 h-screen">
+<!-- Navigation Bar -->
+  <nav class="bg-teal-500 fixed top-0 w-full">
+    <div class="w-2/3 mx-auto py-2 flex justify-between items-center">
+      <div class="flex">
+        <img src="{{ url_for('static',filename='img/python_logo.png') }}" alt="python logo" class="h-9 mr-3">
+        <a href="/" class="text-3xl text-white hover:text-teal-900 cursor-pointer">Python Fitness</a>
+      </div>
+      <div>
+        <a href="/register" class="text-2xl text-white mx-3 hover:text-teal-900">Register</a>
+      </div>
+    </div>
+  </nav>
+  
+  <div id="login" class="bg-teal-600 py-5 px-4 mt-20 mx-auto w-5/12 rounded-md">
+    <h1 class="text-center text-white text-5xl mb-5">Login</h1>
+
+    {% with messages= get_flashed_messages(category_filter = 'login') %}
+      {% if messages%}
+        {% for message in messages %}
+          <p class="bg-red-400 w-full mx-auto p-2 text-center text-slate-600">{{ message }}</p>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <form action="/login_user" method="POST">
+      <p class="text-3xl text-white mb-2">Email:</p>
+      <input name="email" type="text" placeholder="Email" class="p-2 mb-4 w-full rounded-md" />
+
+      <p class="text-3xl text-white mb-2">Password:</p>
+      <input name="password" type="password" placeholder="Password" class="p-2 mb-4 w-full rounded-md" />
+
+      <input type="submit" value="Login" class="bg-white py-2 px-4 mx-auto mt-5 text-2xl text-teal-900 rounded-md block hover:bg-teal-900 hover:text-white hover:cursor-pointer" />
+    </form>
+  </div>
+
+
+</body>
+</html>

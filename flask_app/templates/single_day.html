@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="{{url_for('static',filename='css/output.css')}}" rel="stylesheet">
+  <link href="{{url_for('static',filename='css/circle.css')}}" rel="stylesheet">
+  <link rel="stylesheet" href="/flask_app/static/css/output.css">
+  <script src="https://developer.edamam.com/attribution/badge.js"></script>
+  <title>Saved Food</title>
+</head>
+<body>
+  <!-- Navigation bar -->
+  <nav class="bg-teal-500 fixed top-0 w-full">
+    <div class="w-2/3 mx-auto py-2 flex justify-between items-center">
+      <div class="flex">
+        <img src="{{ url_for('static',filename='img/python_logo.png') }}" alt="python logo" class="h-9 mr-3">
+        <a href="/" class="text-3xl text-white hover:text-teal-900 cursor-pointer">Python Fitness</a>
+      </div>
+      <div>
+        <a href="/calculator" class="text-2xl text-white mx-3 hover:text-teal-900">Calculator</a>
+        <a href="/saved_by_date" class="text-2xl text-white mx-3 hover:text-teal-900">Date</a>
+        <a href="/records" class="text-2xl text-white mx-3 hover:text-teal-900">Records</a>
+        <a href="/logout" class="text-2xl text-white mx-3 hover:text-teal-900">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="w-2/3 mx-auto mt-20">
+    <h1 class="mt-5 text-orange-600 text-4xl text-center">This Is Your Day {{ user.first_name }}!</h1>
+    <p class="mt-5 text-teal-900 text-2xl text-center">Here you can view a single days worth of food that you saved! You can sort the saved foods in order to better see your single day data!</p>
+  </div>
+
+  <hr class="bg-slate-300 h-1 my-10 mx-auto w-3/4 rounded-md">
+
+  {% if foods | length == 0 %}
+  <p class="mt-5 text-orange-600 text-4xl text-center">You don't have any saved food yet!</p>
+    <p class="mt-5 text-orange-600 text-4xl text-center">Add some <a href="/dashboard" class="text-blue-500 hover:underline">here</a></p>
+  {% endif %}
+  
+  {% if foods | length > 0 %}
+
+  <h2 class="mt-5 mb-8  text-teal-500 text-4xl text-center">All Data From {{ date }}</h2>
+
+  <table class=" mx-auto border border-teal-500 w-3/4">
+    <thead>
+      <tr class="bg-orange-200 text-teal-900 text-2xl">
+        <th class="text-center py-1 px-2 mx-2">Food</th>
+        <th class="text-center py-1 px-2 mx-2">Meal</th>
+        <th class="text-center py-1 px-2 mx-2">Calories (kcal)</th>
+        <th class="text-center py-1 px-2 mx-2">Carbs (g)</th>
+        <th class="text-center py-1 px-2 mx-2">Fat (g)</th>
+        <th class="text-center py-1 px-2 mx-2">Protein (g)</th>
+        <th class="text-center py-1 px-2 mx-2">Action</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for food in foods %}
+      <tr class="text-teal-900 hover:bg-teal-50 hover:text-orange-700">
+        <td class="text-center text-xl py-2 px-2 mx-2 max-w-[15%] ">{{ food.food }}</td>
+        <td class="text-center text-xl py-2 px-2 mx-2 max-w-[15%] ">{{ food.meal }}</td>
+        <td class="text-center text-xl py-2 px-2 mx-2 max-w-[15%] ">{{ food.calories }}</td>
+        <td class="text-center text-xl py-2 px-2 mx-2 max-w-[15%] ">{{ food.carbs }}</td>
+        <td class="text-center text-xl py-2 px-2 mx-2 max-w-[15%] ">{{ food.fat }}</td>
+        <td class="text-center text-xl py-2 px-2 mx-2 max-w-[15%] ">{{ food.protein }}</td>
+        <td class="text-center text-xl py-2 px-2 mx-2 max-w-[15%] "><a href="/remove/{{ food.id }}" class="hover:underline">Remove</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+
+  </table>
+  {% endif %}
+
+  <footer class=" w-full bg-teal-500 mt-10 p-3 absolute bottom-0">
+    <div id="edamam-badge" data-color="white" class=" mx-auto w-52"></div>
+  </footer>
+</body>
+</html>
