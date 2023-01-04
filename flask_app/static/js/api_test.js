@@ -16,7 +16,7 @@ function search(event){
   const searchForm = document.getElementById('searchForm');
   const form = new FormData(searchForm);
 
-  fetch('http://127.0.0.1:5000/call_api', {method: 'POST', body:form})
+  fetch('http://35.91.189.146/call_api', {method: 'POST', body:form})
   .then(res => res.json())
   .then(res => {
     measurementValue();
